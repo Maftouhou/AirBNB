@@ -1,3 +1,4 @@
 var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/airbnb');
 
-mongoose.connect('mongodb://localhost/velApp');
+mongoose.Promise = global.Promise;
