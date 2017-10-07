@@ -57,8 +57,8 @@ router.put('/:id', function (req, res, next) {
     UserModel.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(){
         UserModel.findOne({_id: req.params.id}).then(function(user){
             res.send(user);
-        });
-    });
+        }).catch(next);
+    }).catch(next);
 });
 
 /**
