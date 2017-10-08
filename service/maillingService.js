@@ -33,7 +33,6 @@ var SendMail = function(){
 
             });
         });
-        
     };
 };
 

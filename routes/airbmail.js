@@ -15,19 +15,20 @@ router.post('/', function(req, res, next) {
 
     var mailSvc = new MaillingService();
     /**
-     * Expected object : 
+     * Expected Application/JSON : 
      * {
-     *   emailAdress: emailAdress,
-     *   subject: subject,
-     *   content: content
+     *   "emailAdress": ['email@example.com'] ,
+     *   "subject": "Plain Text subject",
+     *   "content": "HTML Content accepted"
      * }
      */
-    mailSvc.sendAnEmail(req.body.emailAdress, req.body.subject, req.body.content, req, res);
+    mailSvc.sendAnEmail(req.body.emailAdress, req.body.subject, req.body.content);
     
-//    res.send({
-//        title: "Information notice",
-//        message: "the message \""+req.body.subject+"\" is sent to \"" + req.body.emailAdress +" \""
-//    });
+    res.status(200);
+    res.send({
+        title: "Information notice",
+        message: "the message \""+req.body.subject+"\" is sent to \"" + req.body.emailAdress +" \""
+    });
     res.end();
 });
 
