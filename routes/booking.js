@@ -26,8 +26,8 @@ router.get('/:id', function(req, res, next) {
  * @param {Http} next 
  */
 router.get('/', function(req, res, next) {
-    if(typeof req.query.firstname === "string"){
-        BookingModel.find({firstname: req.query.firstname}).then(function(booking){
+    if(typeof req.query.bookingRef === "string"){
+        BookingModel.find({bookingRef: req.query.bookingRef}).then(function(booking){
             res.send(booking);
         }).catch(next);
     }else{

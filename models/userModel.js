@@ -10,6 +10,10 @@ var userModel = new mongoose.Schema({
     login: {type: String},
     password: {type: String},
     email: {type: String},
+//    timestamps: { 
+//        createdAt: 'created_at',
+//        updatedAt: 'updated_at'
+//    },
     created_at: {type: Date, default: Date.now },
     updated_at: {type: Date, default: Date.now }
 });

@@ -7,7 +7,11 @@ var appartementModel = new mongoose.Schema({
     appartementID: {type: Number},
     appartementName: {type: String, required: [true, 'AppartementName is required']},
     appartementCity: {type: String, required: [true, 'AppartementCity is required']},
-    availability: {type: Boolean, required: [true, 'Availability is required']}, 
+    availability: {type: Boolean, required: [true, 'Availability is required']},
+//    timestamps: { 
+//        createdAt: 'created_at',
+//        updatedAt: 'updated_at'
+//    },
     created_at: {type: Date, default: Date.now },
     updated_at: {type: Date, default: Date.now }
 });

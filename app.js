@@ -8,6 +8,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var users = require('./routes/users');
 var appartement = require('./routes/appartement');
+var booking = require('./routes/booking');
 
 // mongodb connection
 var db = require('./dao/db');
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/appartement', appartement);
+app.use('/booking', booking);
 
 // Handling Exceptions
 app.use(function(err, req, res, next){
