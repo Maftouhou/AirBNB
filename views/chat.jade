@@ -1,0 +1,16 @@
+extends layout
+
+block content
+	h1 AirBNB Chat Service
+	p Welcome to the AirBNB API Chat service !
+	div(id="mario-chat")
+		div(id="chat-window")
+			div(id="output")
+			p
+				input(type="text" id="handle" placeholder="handle")
+			p
+				input(type="text" id="messages" placeholder="messages")
+			p
+				button(id="send") Send
+
+	script(src="/javascripts/chatService.js")

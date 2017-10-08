@@ -4,17 +4,24 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var socket = require('socket.io');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var appartement = require('./routes/appartement');
 var booking = require('./routes/booking');
 var airmail = require('./routes/airbmail');
+var messaging = require('./routes/messaging');
 
 // mongodb connection
 var db = require('./dao/db');
 
 var app = express();
+
+var io = socket(app.listen());
+io.on('connection', function(socket){
+    console.log('Connection extablished !');
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -33,6 +40,7 @@ app.use('/users', users);
 app.use('/appartement', appartement);
 app.use('/booking', booking);
 app.use('/airmail', airmail);
+app.use('/messaging', messaging);
 
 // Handling Exceptions
 app.use(function(err, req, res, next){
