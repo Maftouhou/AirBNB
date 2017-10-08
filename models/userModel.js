@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
  * @type mongoose.schema
  */
 var userModel = new mongoose.Schema({
-    userId: Number,
+    userId: {type: Number},
     firstname: {type: String, required: [true, 'Firstname is required']},
     lastName: {type: String, required: [true, 'Lastname is required']},
     login: {type: String},
