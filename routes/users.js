@@ -4,20 +4,6 @@ var router = express.Router();
 var UserModel = require('../models/userModel');
 
 /**
- * Get all users
- * 
- * @param {Http} req 
- * @param {Http} res 
- * @param {Http} next 
- */
-router.get('/', function(req, res, next) {
-
-    UserModel.find().then(function(data){
-        res.send(data);
-    }).catch(next);
-});
-
-/**
  * Get one users
  * 
  * @param {Http} req 
@@ -29,6 +15,26 @@ router.get('/:id', function(req, res, next) {
     UserModel.findOne({_id: req.params.id}).then(function(user){
         res.send(user);
     }).catch(next);
+});
+
+/**
+ * Search for spesific user
+ * Or get all users
+ * 
+ * @param {Http} req 
+ * @param {Http} res 
+ * @param {Http} next 
+ */
+router.get('/', function(req, res, next) {
+    if(typeof req.query.firstname === "string"){
+        UserModel.find({firstname: req.query.firstname}).then(function(user){
+            res.send(user);
+        }).catch(next);
+    }else{
+        UserModel.find().then(function(data){
+            res.send(data);
+        }).catch(next);
+    }
 });
 
 /**
