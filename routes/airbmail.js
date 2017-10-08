@@ -11,13 +11,23 @@ var MaillingService = require('../service/maillingService');
  * @param {Http} res 
  * @param {Http} next 
  */
-router.get('/', function(req, res, next) {
+router.post('/', function(req, res, next) {
 
     var mailSvc = new MaillingService();
+    /**
+     * Expected object : 
+     * {
+     *   emailAdress: emailAdress,
+     *   subject: subject,
+     *   content: content
+     * }
+     */
+    mailSvc.sendAnEmail(req.body.emailAdress, req.body.subject, req.body.content, req, res);
     
-    mailSvc.sendAnEmail(['maftouh.hassane@gmail.com'], 'This is a subject', 'this is the body');
-    
-    res.send('sent');
+//    res.send({
+//        title: "Information notice",
+//        message: "the message \""+req.body.subject+"\" is sent to \"" + req.body.emailAdress +" \""
+//    });
     res.end();
 });
 

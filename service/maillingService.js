@@ -4,7 +4,7 @@ var mailConfig = require('./config');
 var SendMail = function(){
     
     // Send an email
-    this.sendAnEmail = function(emailAdresses, subject, bodyMail ){
+    this.sendAnEmail = function(emailAdresses, subject, content, req, res ){
        
         nodemailer.createTestAccount((err, account) => {
             var config = new mailConfig();
@@ -24,13 +24,14 @@ var SendMail = function(){
                 from: '" Air BNB Customer service " <mafthib@mail.airbnb.api.dev>',
                 to: emailAdresses,
                 subject: subject,
-                html: bodyMail
+                html: content
             };
 
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
                     return console.log(error);
                 }
+                
             });
         });
         
