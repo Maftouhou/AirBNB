@@ -4,8 +4,8 @@ var mailConfig = require('./config');
 var SendMail = function(){
     
     // Send an email
-    this.sendAnEmail = function(emailAdresses, subject, content, req, res ){
-       
+    this.sendAnEmail = function(emailAdresses, subject, content){
+        
         nodemailer.createTestAccount((err, account) => {
             var config = new mailConfig();
             
@@ -26,12 +26,11 @@ var SendMail = function(){
                 subject: subject,
                 html: content
             };
-
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
                     return console.log(error);
                 }
-                
+
             });
         });
         
