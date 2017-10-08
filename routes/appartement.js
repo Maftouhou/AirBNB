@@ -13,7 +13,9 @@ var AppartementModel = require('../models/appartementModel');
 router.get('/:id', function(req, res, next) {
 
     AppartementModel.findOne({_id: req.params.id}).then(function(appart){
+        res.status((appart.length === 0) ? 204 : 200);
         res.send(appart);
+        res.end();
     }).catch(next);
 });
 
@@ -28,11 +30,15 @@ router.get('/:id', function(req, res, next) {
 router.get('/', function(req, res, next) {
     if(typeof req.query.appartementCity === "string"){
         AppartementModel.find({appartementCity: req.query.appartementCity}).then(function(appart){
+            res.status((appart.length === 0) ? 204 : 200);
             res.send(appart);
+            res.end();
         }).catch(next);
     }else{
         AppartementModel.find().then(function(appart){
+            res.status((appart.length === 0) ? 204 : 200);
             res.send(appart);
+            res.end();
         }).catch(next);
     }
 });
@@ -47,7 +53,9 @@ router.get('/', function(req, res, next) {
 router.post('/', function (req, res, next) {
     
     AppartementModel.create(req.body).then(function(appart){
+        res.status(201);
         res.send(appart);
+        res.end();
     }).catch(next);
 });
 
@@ -62,7 +70,9 @@ router.put('/:id', function (req, res, next) {
     
     AppartementModel.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(){
         AppartementModel.findOne({_id: req.params.id}).then(function(appart){
+            res.status(200);
             res.send(appart);
+            res.end();
         }).catch(next);
     }).catch(next);
 });
@@ -77,7 +87,9 @@ router.put('/:id', function (req, res, next) {
 router.delete('/:id', function (req, res, next) {
     
     AppartementModel.findByIdAndRemove({_id: req.params.id}).then(function(appart){
+        res.status(200);
         res.send(appart);
+        res.end();
     }).catch(next);
 });
 

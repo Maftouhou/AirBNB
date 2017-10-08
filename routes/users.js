@@ -13,7 +13,9 @@ var UserModel = require('../models/userModel');
 router.get('/:id', function(req, res, next) {
 
     UserModel.findOne({_id: req.params.id}).then(function(user){
+        res.status((user.length === 0) ? 204 : 200);
         res.send(user);
+        res.end();
     }).catch(next);
 });
 
@@ -28,11 +30,15 @@ router.get('/:id', function(req, res, next) {
 router.get('/', function(req, res, next) {
     if(typeof req.query.firstname === "string"){
         UserModel.find({firstname: req.query.firstname}).then(function(user){
+            res.status((user.length === 0) ? 204 : 200);
             res.send(user);
+            res.end();
         }).catch(next);
     }else{
-        UserModel.find().then(function(data){
-            res.send(data);
+        UserModel.find().then(function(user){
+            res.status((user.length === 0) ? 204 : 200);
+            res.send(user);
+            res.end();
         }).catch(next);
     }
 });
@@ -47,7 +53,9 @@ router.get('/', function(req, res, next) {
 router.post('/', function (req, res, next) {
     
     UserModel.create(req.body).then(function(user){
+        res.status(201);
         res.send(user);
+        res.end();
     }).catch(next);
 });
 
@@ -62,7 +70,9 @@ router.put('/:id', function (req, res, next) {
     
     UserModel.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(){
         UserModel.findOne({_id: req.params.id}).then(function(user){
+            res.status(200);
             res.send(user);
+            res.end();
         }).catch(next);
     }).catch(next);
 });
@@ -77,7 +87,9 @@ router.put('/:id', function (req, res, next) {
 router.delete('/:id', function (req, res, next) {
     
     UserModel.findByIdAndRemove({_id: req.params.id}).then(function(user){
+        res.status(200);
         res.send(user);
+        res.end();
     }).catch(next);
 });
 

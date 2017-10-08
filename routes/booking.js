@@ -13,7 +13,9 @@ var BookingModel = require('../models/bookingModel');
 router.get('/:id', function(req, res, next) {
 
     BookingModel.findOne({_id: req.params.id}).then(function(booking){
+        res.status((booking.length === 0) ? 204 : 200);
         res.send(booking);
+        res.end();
     }).catch(next);
 });
 
@@ -26,13 +28,19 @@ router.get('/:id', function(req, res, next) {
  * @param {Http} next 
  */
 router.get('/', function(req, res, next) {
+   
     if(typeof req.query.bookingRef === "string"){
         BookingModel.find({bookingRef: req.query.bookingRef}).then(function(booking){
+            
+            res.status((booking.length === 0) ? 204 : 200);
             res.send(booking);
+            res.end();
         }).catch(next);
     }else{
         BookingModel.find().then(function(booking){
+            res.status((booking.length === 0) ? 204 : 200);
             res.send(booking);
+            res.end();
         }).catch(next);
     }
 });
@@ -47,7 +55,9 @@ router.get('/', function(req, res, next) {
 router.post('/', function (req, res, next) {
     
     BookingModel.create(req.body).then(function(booking){
+        res.status(201);
         res.send(booking);
+        res.end();
     }).catch(next);
 });
 
@@ -62,7 +72,9 @@ router.put('/:id', function (req, res, next) {
     
     BookingModel.findByIdAndUpdate({_id: req.params.id}, req.body).then(function(){
         BookingModel.findOne({_id: req.params.id}).then(function(booking){
+            res.status(200);
             res.send(booking);
+            res.end();
         }).catch(next);
     }).catch(next);
 });
@@ -77,7 +89,9 @@ router.put('/:id', function (req, res, next) {
 router.delete('/:id', function (req, res, next) {
     
     BookingModel.findByIdAndRemove({_id: req.params.id}).then(function(booking){
+        res.status(200);
         res.send(booking);
+        res.end();
     }).catch(next);
 });
 
