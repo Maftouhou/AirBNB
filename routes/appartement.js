@@ -26,13 +26,13 @@ router.get('/:id', function(req, res, next) {
  * @param {Http} next 
  */
 router.get('/', function(req, res, next) {
-    if(typeof req.query.appartementName === "string"){
-        AppartementModel.find({appartementName: req.query.appartementName}).then(function(appart){
+    if(typeof req.query.appartementCity === "string"){
+        AppartementModel.find({appartementCity: req.query.appartementCity}).then(function(appart){
             res.send(appart);
         }).catch(next);
     }else{
-        AppartementModel.find().then(function(data){
-            res.send(data);
+        AppartementModel.find().then(function(appart){
+            res.send(appart);
         }).catch(next);
     }
 });
