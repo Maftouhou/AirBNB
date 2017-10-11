@@ -1,24 +1,46 @@
-// make connextion
+/**
+ * Establish Connexion
+ */
 var socket = io.connect('http://localhost:4000');
 
-// Query DOM
-var messages    = document.getElementById('messages'),
-    handle	= document.getElementById('handle'),
-    btn		= document.getElementById('send'),
-    output	= document.getElementById('output');
+var contents    = document.getElementById('contents'),
+    user	= document.getElementById('user'),
+    sendMessage	= document.getElementById('sendMessage'),
+    viewPort	= document.getElementById('viewPort'),
+    feedback	= document.getElementById('feedback');
 
-// send an event 
-btn.addEventListener('click', function(){
-    socket.emit('chat', {
-        message: messages.value,
-        handle: handle.value
+/**
+ * Sending message to the socket server
+ */
+sendMessage.addEventListener('click', function(){
+    socket.emit('messaging', {
+        contents: contents.value,
+        user: user.value
     });
 });
 
-// Listening events
-socket.on('chat', function(data){
-    output.innerHTML += '<p><b>'+data.handle+'</b> : '+data.message+'</p>';
+/**
+ * Send a typing notification to the server
+ */
+contents.addEventListener('keypress', function(){
+    socket.emit('typing', user.value);
 });
 
-// console.log("Client script page", messages, handle, btn, output );
+/**
+ * Listening message from the soocket server
+ * @param {object} data 
+ */
+socket.on('messaging', function(data){
 
+    viewPort.innerHTML += '<p><b>'+data.user+'</b> : '+data.contents+'</p>';
+    contents.value = '';
+    feedback.innerHTML = '';
+});
+
+/**
+ * Listening typing event from the socket server
+ * @param {object} data 
+ */
+socket.on('typing', function(data){
+    feedback.innerHTML = '<p><i><b>'+data+'</b> is typing... </i></p>';
+});

@@ -21,9 +21,14 @@ var server = app.listen(4000);
 var io = require('socket.io').listen(server);
 io.on('connection', function(socket){
     
-    socket.on('chat', function(data){
-        io.sockets.emit('chat', data);
-        console.log(data);
+    // When a user is typing a message !
+    socket.on('typing', function(data){
+        socket.broadcast.emit('typing', data);
+    });
+    
+    // When a chat message is sent !
+    socket.on('messaging', function(data){
+        io.sockets.emit('messaging', data);
     });
     console.log('Connection extablished !');
 });
