@@ -15,11 +15,16 @@ var messaging = require('./routes/messaging');
 
 // mongodb connection
 var db = require('./dao/db');
-
 var app = express();
 
-var io = socket(app.listen());
+var server = app.listen(4000);
+var io = require('socket.io').listen(server);
 io.on('connection', function(socket){
+    
+    socket.on('chat', function(data){
+        io.sockets.emit('chat', data);
+        console.log(data);
+    });
     console.log('Connection extablished !');
 });
 
